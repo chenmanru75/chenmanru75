@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://chenmanru75.github.io/sitemap.xml
