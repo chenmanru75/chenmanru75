@@ -1,0 +1,37 @@
+language: go
+
+go:
+- 1.13.x
+
+branches:
+  only:
+  - work
+
+notifications:
+  email:
+    recipients:
+      - $EMAIL # 设置通知邮件
+    on_success: change
+    on_failure: always
+
+before_install:
+  - wget -O hugo_extended.deb "https://github.com/gohugoio/hugo/releases/download/v0.73.0/hugo_extended_0.73.0_Linux-64bit.deb"
+  - sudo dpkg -i hugo_extended.deb
+
+script:
+  - hugo
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $TOKEN  # Set in travis-ci.org dashboard, marked secure
+  verbose: true
+  keep-history: true
+  local-dir: public
+  target_branch: master  # branch contains blog content
+  on:
+    branch: work
+
+env:
+  global:
+    - REF=github.com/chenmanru75/chenmanru75.github.io # 设置 github 地址
